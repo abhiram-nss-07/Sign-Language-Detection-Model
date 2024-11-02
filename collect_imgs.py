@@ -17,17 +17,14 @@ for class_index in range(class_count):
 
     print(f'Collecting data for class {class_index}')
 
-    # Wait for the user to be ready
     while True:
         ret, frame = camera.read()
         if not ret:
             print("Failed to capture image. Check camera connection.")
             break
 
-        # Flip the frame horizontally for consistency
         frame = cv2.flip(frame, 1)
 
-        # Display readiness message
         cv2.putText(frame, 'Ready? Press "S" to start or "Q" to quit.', (50, 50), 
                     cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 255, 0), 2, cv2.LINE_AA)
         cv2.imshow('frame', frame)
@@ -40,7 +37,6 @@ for class_index in range(class_count):
             cv2.destroyAllWindows()
             exit()
 
-    # Start collecting images for the current class
     image_index = 0
     while image_index < images_per_class:
         ret, frame = camera.read()
@@ -48,16 +44,13 @@ for class_index in range(class_count):
             print("Failed to capture image. Check camera connection.")
             break
 
-        # Flip the frame horizontally for consistency
         frame = cv2.flip(frame, 1)
 
-        # Show the frame and save the image
         cv2.imshow('frame', frame)
         image_path = os.path.join(class_path, f'{image_index}.jpg')
         cv2.imwrite(image_path, frame)
         image_index += 1
 
-        # Press 'Q' to quit the program
         if cv2.waitKey(25) == ord('q'):
             camera.release()
             cv2.destroyAllWindows()
