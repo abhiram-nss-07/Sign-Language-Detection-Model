@@ -37,6 +37,7 @@ for class_index in range(class_count):
             cv2.destroyAllWindows()
             exit()
 
+    # Start collecting images for the current class
     image_index = 0
     while image_index < images_per_class:
         ret, frame = camera.read()
@@ -44,13 +45,16 @@ for class_index in range(class_count):
             print("Failed to capture image. Check camera connection.")
             break
 
+        # Flip the frame horizontally for consistency
         frame = cv2.flip(frame, 1)
 
+        # Show the frame and save the image
         cv2.imshow('frame', frame)
         image_path = os.path.join(class_path, f'{image_index}.jpg')
         cv2.imwrite(image_path, frame)
         image_index += 1
 
+        # Press 'Q' to quit the program
         if cv2.waitKey(25) == ord('q'):
             camera.release()
             cv2.destroyAllWindows()
