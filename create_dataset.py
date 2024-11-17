@@ -38,7 +38,10 @@ for class_folder in os.listdir(IMAGE_DIR):
             class_labels.append(class_folder)
 
 # Save features and labels into a pickle file
-with open('processed_data.pickle', 'wb') as file:
-    pickle.dump({'features': features, 'labels': class_labels}, file)
+try:
+    with open('processed_data.pickle', 'wb') as file:
+        pickle.dump({'features': features, 'labels': class_labels}, file)
+    print("Feature extraction complete. Data saved to 'processed_data.pickle'.")
+except Exception as e:
+    print(f"An error occurred while saving the pickle file: {e}")
 
-print("Feature extraction complete. Data saved to 'processed_data.pickle'.")
